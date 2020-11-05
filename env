@@ -1,0 +1,15 @@
+DEBUG=1
+SECRET_KEY=foo
+HOST_NAME=milab.redclara.net
+DJANGO_ALLOWED_HOSTS=*
+SQL_ENGINE=django.db.backends.postgresql
+SQL_DATABASE=app_db
+SQL_USER=db_user
+SQL_PASSWORD=db_password
+SQL_HOST=db
+SQL_PORT=5432
+DATABASE=postgres
+VIRTUAL_HOST=milab.redclara.net
+VIRTUAL_PORT=8000
+LETSENCRYPT_HOST=milab.redclara.net
+IDP_METADATA_LOCATION=https://idplaconga.redclara.net/simplesaml/saml2/idp/metadata.php
