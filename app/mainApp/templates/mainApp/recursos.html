@@ -1,0 +1,35 @@
+{% extends "mainApp/base.html" %} {% load static %} {% block content %}
+
+<!-- ======= Team Section ======= -->
+<section id="team" class="team section-bg">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+            <h2>Recursos</h2>
+            <p>Aquí están disponibles el conjunto de recuros que el proyecto MiLAB dispone para la comunidad académica e investigativa ..</p>
+        </div>
+
+        <div class="row">
+            {% for recurso in recursos %}
+            <div class="col-lg-6">
+                <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="member-info">
+                        <h4>{{recurso.titulo}}</h4>
+                        <p>{{recurso.descripcion}}</p>
+                        <div>
+                            <a href="{{recurso.archivo.url}}" alt="{{recurso.titulo}}">Descargar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+<!-- End Team Section -->
+
+
+
+
+{% endblock %}

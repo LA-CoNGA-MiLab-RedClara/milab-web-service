@@ -15,6 +15,8 @@ from os import environ
 import saml2
 import saml2.saml
 
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mainApp',
     'djangosaml2',
 ]
 
@@ -128,8 +131,14 @@ USE_TZ = True
 
 STATIC_URL = '/staticfiles/'
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
-MEDIA_URL = '/mediafiles/'
-MEDIA_ROOT = str(BASE_DIR / "mediafiles")
+### MEDIA_URL = '/mediafiles/'
+### MEDIA_ROOT = str(BASE_DIR / "mediafiles") #  By luixip
+
+MEDIA_URL = '/media/' # Add by luixip
+MEDIA_ROOT = os.path.join(BASE_DIR,'media') # Add by luixip
+
+
+
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 AUTHENTICATION_BACKENDS = (

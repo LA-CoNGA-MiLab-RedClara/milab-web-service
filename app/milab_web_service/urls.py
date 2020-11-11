@@ -18,5 +18,6 @@ from django.urls import include, path, re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('mainApp.urls')),
     re_path(r'^saml/', include('djangosaml2.urls')),
 ]
