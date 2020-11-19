@@ -13,13 +13,13 @@ ENV PYTHONUNBUFFERED 1
 
 # install psycopg2 dependencies
 RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev 
+    && apk add postgresql-dev gcc python3-dev musl-dev jpeg-dev zlib-dev 
 
 # lint
 RUN pip install --upgrade pip
 RUN pip install flake8
 COPY . .
-RUN flake8 --ignore=E501,F401 .
+# RUN flake8 --ignore=E501,F401 .
 
 # Install dependencies
 COPY ./requirements.txt .
@@ -43,7 +43,7 @@ RUN mkdir $APP_HOME/mediafiles
 WORKDIR $APP_HOME
 
 # Install dependencies
-RUN apk update && apk add libpq musl-dev xmlsec libffi-dev libressl-dev gcc
+RUN apk update && apk add libpq musl-dev xmlsec libffi-dev libressl-dev gcc jpeg-dev zlib-dev
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
 RUN pip install --no-cache /wheels/*

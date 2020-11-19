@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 from os import environ
+from django.urls import reverse_lazy
 import saml2
 import saml2.saml
 
@@ -92,7 +93,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -149,13 +149,17 @@ AUTHENTICATION_BACKENDS = (
 BASE_URL = environ.get("HOST_NAME", "localhost")
 LOGIN_URL = '/saml/login/'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+ACS_DEFAULT_REDIRECT_URL = reverse_lazy('/')
+LOGIN_REDIRECT_URL = '/'
 SAML_IGNORE_LOGOUT_ERRORS = True
+SAML_CREATE_UNKNOWN_USER = True
 SAML_CONFIG = {
+    'name': 'MiLab WebApp SP',
     # full path to the xmlsec1 binary programm
     'xmlsec_binary': '/usr/bin/xmlsec1',
 
     # your entity id, usually your subdomain plus the url to the metadata view
-    'entityid': f'http://{BASE_URL}/saml2/metadata/',
+    'entityid': f'https://{BASE_URL}/saml/metadata/',
 
     # directory with attribute mapping
     # 'attribute_map_dir': BASE_DIR / 'attribute-maps',
@@ -165,7 +169,7 @@ SAML_CONFIG = {
         # we are just a lonely SP
         'sp': {
             'name': 'Federated Django sample SP',
-            'name_id_format': saml2.saml.NAMEID_FORMAT_PERSISTENT,
+            'name_id_format': "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
 
             # For Okta add signed logout requets. Enable this:
             # "logout_requests_signed": True,
@@ -174,16 +178,16 @@ SAML_CONFIG = {
                 # url and binding to the assetion consumer service view
                 # do not change the binding or service name
                 'assertion_consumer_service': [
-                    (f'http://{BASE_URL}/saml2/acs/',
+                    (f'https://{BASE_URL}/saml/acs/',
                      saml2.BINDING_HTTP_POST),
                 ],
                 # url and binding to the single logout service view
                 # do not change the binding or service name
                 'single_logout_service': [
                     # Disable next two lines for HTTP_REDIRECT for IDP's that only support HTTP_POST. Ex. Okta:
-                    (f'http://{BASE_URL}/saml2/ls/',
+                    (f'https://{BASE_URL}/saml/ls/',
                      saml2.BINDING_HTTP_REDIRECT),
-                    (f'http://{BASE_URL}/saml2/ls/post',
+                    (f'https://{BASE_URL}/saml/ls/post',
                      saml2.BINDING_HTTP_POST),
                 ],
             },
@@ -195,10 +199,10 @@ SAML_CONFIG = {
             'name_id_format_allow_create': False,
 
             # attributes that this project need to identify a user
-            'required_attributes': ['uid'],
+            #'required_attributes': ['uid'],
 
             # attributes that may be useful to have but not required
-            'optional_attributes': ['eduPersonAffiliation'],
+            #'optional_attributes': ['eduPersonAffiliation'],
 
         },
     },
@@ -237,4 +241,10 @@ SAML_CONFIG = {
         'display_name': [('Milab', 'es'), ('Milab', 'en')],
         'url': [(BASE_URL, 'es'), (BASE_URL, 'en')],
     },
+}
+SAML_ATTRIBUTE_MAPPING = {
+    'uid': ('username', ),
+    'mail': ('email', ),
+    'cn': ('first_name', ),
+    'sn': ('last_name', ),
 }
