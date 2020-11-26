@@ -1,37 +1,51 @@
-from django.shortcuts import render, HttpResponse
-from django.contrib.auth.decorators import login_required
-#from serviciosApp.models import Servicio
-from mainApp.models import Servicio, Noticia, Recurso
+from django.http import request
 
-# Create your views here.
+from django.shortcuts import render
+from django.http import HttpRequest
+from django.contrib.auth.decorators import login_required
+
+
+from mainApp.models import Servicio
+from mainApp.models import Noticia
+from mainApp.models import Recurso
+
+from mainApp.forms import FormularioContacto
 
 @login_required
 def inicio (request):
-    #    return HttpResponse("Inicio")
-    return render(request,"mainApp/inicio.html")
-
-@login_required
-def acerca (request):
-    return render(request,"mainApp/acerca.html")
-
-@login_required
-def servicios (request):
     servicios = Servicio.objects.all()
-#    return render(request,"servicios/servicios.html", {"servicios": servicios})
-    return render(request,"mainApp/servicios.html", {"servicios": servicios})
-
-@login_required
-def noticias (request):
     noticias = Noticia.objects.all()
-    return render(request,"mainApp/noticias.html", {"noticias": noticias})
-
-@login_required
-def recursos (request):
     recursos = Recurso.objects.all()
-    return render(request,"mainApp/recursos.html", {"recursos": recursos})
+    contacto = FormularioContacto()
+    return render(
+                request,
+                "mainApp/index.html",
+                {
+                    "servicios": servicios,
+                    "noticias": noticias,
+                    "recursos": recursos,
+                    "contacto": contacto,
+                }
+            )
 
 @login_required
-def contacto (request):
-#    return HttpResponse("Contacto")
-    return render(request,"mainApp/contacto.html")
+def registro (request):
+    contacto = FormularioContacto(request.POST)
+    servicios = Servicio.objects.all()
+    noticias = Noticia.objects.all()
+    recursos = Recurso.objects.all()
+    if contacto.is_valid():
+        contacto.save()
+        contacto = FormularioContacto()
 
+    return render (
+                request,
+                "mainApp/index.html",
+                {
+                    "servicios": servicios,
+                    "noticias": noticias,
+                    "recursos": recursos,
+                    "contacto": contacto,
+                    "mensaje": "OK",
+                }
+        )

@@ -1,16 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 
 class Servicio(models.Model):
     titulo = models.CharField(max_length=200) 
-    descripcion = models.CharField(max_length=400)
+    descripcion = RichTextField(blank=True, null=True)
     imagen = models.ImageField(upload_to='servicios')
     enlace = models.CharField(max_length=400)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
-    
+
     class Meta:
         verbose_name = 'servicio'
         verbose_name_plural = 'servicios'
@@ -33,7 +34,7 @@ class Categoria(models.Model):
     
 class Noticia(models.Model):
     titulo = models.CharField(max_length=200)
-    contenido = models.CharField(max_length=800)
+    contenido = RichTextField(blank=True, null=True)
     imagen = models.ImageField(upload_to='noticias', null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
@@ -46,6 +47,7 @@ class Noticia(models.Model):
         
     def __str__(self):
         return self.titulo
+
 class CategoriaRecurso(models.Model):
     nombre = models.CharField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
@@ -60,8 +62,8 @@ class CategoriaRecurso(models.Model):
 
 class Recurso(models.Model):
     titulo = models.CharField(max_length=200)
-    descripcion = models.CharField(max_length=400, null=True, blank=True)
-    archivo = models.FileField(upload_to='recursos')
+    descripcion = models.TextField(blank=True, null=True)
+    archivo = models.FileField(upload_to='recursos', null=True)
     estado = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
@@ -73,4 +75,17 @@ class Recurso(models.Model):
         
     def __str__(self):
         return self.titulo
+
+class Contacto(models.Model):
+    asunto = models.CharField(max_length=100)
+    mensaje = models.TextField(null=False)
+    remitente = models.CharField(max_length=100)
+    email = models.EmailField()
+
+    class Meta:
+        verbose_name = 'contacto'
+        verbose_name_plural = 'contactos'
+
+    def __str__(self):
+        return self.asunto
 
