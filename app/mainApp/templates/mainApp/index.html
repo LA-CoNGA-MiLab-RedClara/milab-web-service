@@ -96,10 +96,11 @@
             <div class="container">
                 <div class="row justify-content-center" data-aos="zoom-in">
 
-                    <div class="align-items-center">                    
-                        Alojado por: <img src="{% static 'mainApp/img/clients/logo_cedia.png' %}" class=" img-fluid" alt="">
+                    <div class="align-items-center">
+                        Alojado por: <img src="{% static 'mainApp/img/clients/logo_cedia.png' %}" class=" img-fluid"
+                            alt="">
                     </div>
-            </div>
+                </div>
         </section>
         <!-- End Cliens Section -->
 
@@ -125,11 +126,11 @@
                     </div>
                     <div>
                         <p>
-                            <ul>
-                                <li><i class="ri-check-double-line"></i> Datos de investigación</li>
-                                <li><i class="ri-check-double-line"></i> Códigos computacionales</li>
-                                <li><i class="ri-check-double-line"></i> Entornos de investigación</li>
-                            </ul>
+                        <ul>
+                            <li><i class="ri-check-double-line"></i> Datos de investigación</li>
+                            <li><i class="ri-check-double-line"></i> Códigos computacionales</li>
+                            <li><i class="ri-check-double-line"></i> Entornos de investigación</li>
+                        </ul>
                         </p>
                     </div>
                 </div>
@@ -139,30 +140,43 @@
 
 
         <!-- ======= Services Section ======= -->
-        <section id="services" class="services section-bg">
+        <section id="services" class="services section-bg" data-aos="zoom-in" data-aos-delay="100">
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
                     <h2>Servicios</h2>
                     <p>Los siguientes son los servicios incluidos en el proyecto</p>
                 </div>
-                <div class="row contenedorTarjetas">
+                <div class=" row " style="margin: auto;">
 
                     {% for servicio in servicios %}
-                    <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="icon-box tarjeta">
-                            <div class="icon">
-                                <figure><img src="{{servicio.imagen.url}}" alt="{{servicio.titulo}}"></figure>
-                            </div>
 
-                            <h4><a href="{{servicio.enlace}}" alt="{{servicio.titulo}}"
-                                    target="_blank">{{servicio.titulo}}</a></h4>
-                            <p>{{servicio.descripcion}}</p>
+                    <div class="card mb-3" style="width: 450px; min-height: 200px; margin: auto;">
+                        <div class="row no-gutters">
+                            <div class="" style="width: 110px; min-height: 100px;">
+                                <img    src="{{servicio.imagen.url}}" 
+                                        class="card-img" alt="{{servicio.titulo}}" 
+                                        style="display: block; max-height: 200px; max-width: 100px; margin-top: 10px; margin-left: auto; margin-right: auto;">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body" sytle="text-align:left">
+                                    <h5 class="card-title">{{servicio.titulo}}</h5>
+                                    <p class="card-text" style="scroll-behavior: auto;">{{servicio.descripcion}} 
+                                    </p>
+                                    <a href="{{servicio.descripcion}}" class="btn btn-primary" target="_blank">Abrir</a>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    {% endfor %}
+    
 
+
+
+                    {% endfor %}
                 </div>
+
+
             </div>
         </section>
         <!-- End Services Section -->
@@ -179,7 +193,7 @@
 
                 <div class="row">
                     {% for noticia in noticias %}
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" style="margin-top: 20px;">
                         <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
                             <div class="pic"><img src="{{noticia.imagen.url}}" class="img-fluid" alt=""></div>
                             <div class="member-info">
@@ -242,9 +256,9 @@
 
 
                 {%  if contacto.errors %}
-                    <div class="alert alert-danger" role="alert">
-                        Error en el registro del formulario
-                    </div>
+                <div class="alert alert-danger" role="alert">
+                    Error en el registro del formulario
+                </div>
                 {% endif %}
 
                 <div class="section-title">
@@ -258,15 +272,15 @@
                 <form action="{% url 'Registro' %}#contact" method="POST">
                     {% csrf_token %}
                     {% if mensaje %}
-                        <div class="alert alert-alert-success" role="alert">
-                            Información registrada correctamente
-                        </div>
+                    <div class="alert alert-alert-success" role="alert">
+                        Información registrada correctamente
+                    </div>
                     {% endif %}
-                                
+
                     {{ contacto|crispy }}
 
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                </form>                    
+                </form>
             </div>
         </section>
         <!-- End Contact Section -->
