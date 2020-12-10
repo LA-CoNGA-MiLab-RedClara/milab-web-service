@@ -13,8 +13,8 @@ class Servicio(models.Model):
     updated = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = 'servicio'
-        verbose_name_plural = 'servicios'
+        verbose_name = 'Servicio'
+        verbose_name_plural = 'Servicios'
     
     def __str__(self):
         return self.titulo
@@ -25,8 +25,8 @@ class Categoria(models.Model):
     updated = models.DateTimeField(auto_now_add=True)
         
     class Meta:
-        verbose_name = 'Categoria para noticias'
-        verbose_name_plural = 'Categorias para noticias'
+        verbose_name = 'Categoría para noticias'
+        verbose_name_plural = 'Categorías para noticias'
         
     def __str__(self):
         return self.nombre
@@ -42,8 +42,8 @@ class Noticia(models.Model):
     categorias = models.ManyToManyField(Categoria)
     
     class Meta:
-        verbose_name = 'noticia'
-        verbose_name_plural = 'noticias'
+        verbose_name = 'Noticia'
+        verbose_name_plural = 'Noticias'
         
     def __str__(self):
         return self.titulo
@@ -54,15 +54,15 @@ class CategoriaRecurso(models.Model):
     updated = models.DateTimeField(auto_now_add=True)
         
     class Meta:
-        verbose_name = 'Categoria para recurso'
-        verbose_name_plural = 'Categorias para recursos'
+        verbose_name = 'Categoría para recurso'
+        verbose_name_plural = 'Categorías para recursos'
         
     def __str__(self):
         return self.nombre
 
 class Recurso(models.Model):
     titulo = models.CharField(max_length=200)
-    descripcion = models.TextField(blank=True, null=True)
+    descripcion = RichTextField(blank=True, null=True)
     archivo = models.FileField(upload_to='recursos', null=True)
     estado = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)

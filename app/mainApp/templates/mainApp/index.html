@@ -96,11 +96,10 @@
             <div class="container">
                 <div class="row justify-content-center" data-aos="zoom-in">
 
-                    <div class="align-items-center">
-                        Alojado por: <img src="{% static 'mainApp/img/clients/logo_cedia.png' %}" class=" img-fluid"
-                            alt="">
+                    <div class="align-items-center">                    
+                        Alojado por: <img src="{% static 'mainApp/img/clients/logo_cedia.png' %}" class=" img-fluid" alt="">
                     </div>
-                </div>
+            </div>
         </section>
         <!-- End Cliens Section -->
 
@@ -126,11 +125,11 @@
                     </div>
                     <div>
                         <p>
-                        <ul>
-                            <li><i class="ri-check-double-line"></i> Datos de investigación</li>
-                            <li><i class="ri-check-double-line"></i> Códigos computacionales</li>
-                            <li><i class="ri-check-double-line"></i> Entornos de investigación</li>
-                        </ul>
+                            <ul>
+                                <li><i class="ri-check-double-line"></i> Datos de investigación</li>
+                                <li><i class="ri-check-double-line"></i> Códigos computacionales</li>
+                                <li><i class="ri-check-double-line"></i> Entornos de investigación</li>
+                            </ul>
                         </p>
                     </div>
                 </div>
@@ -140,43 +139,30 @@
 
 
         <!-- ======= Services Section ======= -->
-        <section id="services" class="services section-bg" data-aos="zoom-in" data-aos-delay="100">
+        <section id="services" class="services section-bg">
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
                     <h2>Servicios</h2>
                     <p>Los siguientes son los servicios incluidos en el proyecto</p>
                 </div>
-                <div class=" row " style="margin: auto;">
+                <div class="row contenedorTarjetas">
 
                     {% for servicio in servicios %}
-
-                    <div class="card mb-3" style="width: 450px; min-height: 200px; margin: auto;">
-                        <div class="row no-gutters">
-                            <div class="" style="width: 110px; min-height: 100px;">
-                                <img    src="{{servicio.imagen.url}}" 
-                                        class="card-img" alt="{{servicio.titulo}}" 
-                                        style="display: block; max-height: 200px; max-width: 100px; margin-top: 10px; margin-left: auto; margin-right: auto;">
+                    <div class="col-xl-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="icon-box tarjeta">
+                            <div class="icon">
+                                <figure><img src="{{servicio.imagen.url}}" alt="{{servicio.titulo}}"></figure>
                             </div>
-                            <div class="col-md-8">
-                                <div class="card-body" sytle="text-align:left">
-                                    <h5 class="card-title">{{servicio.titulo}}</h5>
-                                    <p class="card-text" style="scroll-behavior: auto;">{{servicio.descripcion}} 
-                                    </p>
-                                    <a href="{{servicio.descripcion}}" class="btn btn-primary" target="_blank">Abrir</a>
 
-                                </div>
-                            </div>
+                            <h4><a href="{{servicio.enlace}}" alt="{{servicio.titulo}}"
+                                    target="_blank">{{servicio.titulo}}</a></h4>
+                            <p>{{servicio.descripcion | safe}}</p>
                         </div>
                     </div>
-    
-
-
-
                     {% endfor %}
+
                 </div>
-
-
             </div>
         </section>
         <!-- End Services Section -->
@@ -193,12 +179,12 @@
 
                 <div class="row">
                     {% for noticia in noticias %}
-                    <div class="col-lg-6" style="margin-top: 20px;">
+                    <div class="col-lg-6">
                         <div class="member d-flex align-items-start" data-aos="zoom-in" data-aos-delay="100">
                             <div class="pic"><img src="{{noticia.imagen.url}}" class="img-fluid" alt=""></div>
                             <div class="member-info">
                                 <h4>{{noticia.titulo}}</h4>
-                                <span>{{noticia.autor}}</span>
+                                <span>Por: {{noticia.autor}}</span>
                                 <p>{{noticia.contenido | safe}}</p>
                             </div>
                         </div>
@@ -256,9 +242,9 @@
 
 
                 {%  if contacto.errors %}
-                <div class="alert alert-danger" role="alert">
-                    Error en el registro del formulario
-                </div>
+                    <div class="alert alert-danger" role="alert">
+                        Error en el registro del formulario
+                    </div>
                 {% endif %}
 
                 <div class="section-title">
@@ -272,15 +258,15 @@
                 <form action="{% url 'Registro' %}#contact" method="POST">
                     {% csrf_token %}
                     {% if mensaje %}
-                    <div class="alert alert-alert-success" role="alert">
-                        Información registrada correctamente
-                    </div>
+                        <div class="alert alert-alert-success" role="alert">
+                            Información registrada correctamente
+                        </div>
                     {% endif %}
-
+                                
                     {{ contacto|crispy }}
 
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                </form>
+                </form>                    
             </div>
         </section>
         <!-- End Contact Section -->
@@ -298,9 +284,9 @@
                     <div class="col-lg-3 col-md-6 footer-contact ">
                         <h3>RedCLARA</h3>
                         <p>
-                            Rambla República de México 6125. <br> Montevideo 11400. Uruguay<br><br>
-                            +598 26042222<br>
-                            RedCLARA_Comunica@redclara.net<br>
+                            A108 Adam Street <br> New York, NY 535022<br> United States <br><br>
+                            <strong>Phone:</strong> +1 5589 55488 55<br>
+                            <strong>Email:</strong> info@example.com<br>
                         </p>
                     </div>
 
@@ -310,10 +296,11 @@
                         <h4>Nuestras redes sociales</h4>
                         <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
                         <div class="social-links mt-3 ">
-                            <a href="https://twitter.com/RedCLARA" class="twitter " target="_blank"><i class="bx bxl-twitter "></i></a>
-                            <a href="https://www.facebook.com/pages/RedCLARA/177402962275923" class="facebook " target="_blank"><i class="bx bxl-facebook "></i></a>
-                            <a href="https://www.linkedin.com/company/clara_3" class="instagram " target="_blank"><i class="bx bxl-instagram "></i></a>
-                            <a href="https://www.youtube.com/channel/UCxvWlCSDzYTAE7edFxWyVgA?view_as=subscriber" class="youtube "><i class="bx bxl-youtube "></i></a>
+                            <a href="# " class="twitter "><i class="bx bxl-twitter "></i></a>
+                            <a href="# " class="facebook "><i class="bx bxl-facebook "></i></a>
+                            <a href="# " class="instagram "><i class="bx bxl-instagram "></i></a>
+                            <a href="# " class="google-plus "><i class="bx bxl-skype "></i></a>
+                            <a href="# " class="linkedin "><i class="bx bxl-linkedin "></i></a>
                         </div>
                     </div>
 
