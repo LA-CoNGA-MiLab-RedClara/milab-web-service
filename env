@@ -1,4 +1,4 @@
-DEBUG=1
+DEBUG=0
 SECRET_KEY=foo
 HOST_NAME=milab.redclara.net
 DJANGO_ALLOWED_HOSTS=*

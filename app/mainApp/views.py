@@ -1,6 +1,7 @@
 from django.http import request
 from django.shortcuts import render
 from django.http import HttpRequest
+from django.contrib.auth.decorators import login_required
 
 from mainApp.models import Servicio
 from mainApp.models import Noticia
@@ -8,6 +9,7 @@ from mainApp.models import Recurso
 
 from mainApp.forms import FormularioContacto
 
+@login_required
 def inicio (request):
     servicios = Servicio.objects.all()
     noticias = Noticia.objects.all()
@@ -24,6 +26,7 @@ def inicio (request):
                 }
             )
 
+@login_required
 def registro (request):
     contacto = FormularioContacto(request.POST)
     servicios = Servicio.objects.all()
